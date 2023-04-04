@@ -42,6 +42,13 @@ public class Automobile {
 	}
 	
 	
+	public Automobile (String marca, String modello, String targa) {
+		this.marca=marca;
+		this.modello=modello;
+		this.targa=targa;
+	}
+	
+	
 	public Long getId() {
 		return id;
 	}

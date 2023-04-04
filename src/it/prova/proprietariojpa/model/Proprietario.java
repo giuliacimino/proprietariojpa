@@ -43,6 +43,14 @@ public class Proprietario {
 		
 	}
 	
+	public Proprietario (String nome, String cognome, String cf, LocalDate dataDiNascita) {
+		this.nome=nome;
+		this.cognome=cognome;
+		this.cf= cf;
+		this.dataDiNascita=dataDiNascita;
+	}
+	
+	
 	
 	
 	public Long getId() {
