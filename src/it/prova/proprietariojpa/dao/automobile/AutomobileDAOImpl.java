@@ -3,6 +3,7 @@ package it.prova.proprietariojpa.dao.automobile;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import it.prova.proprietariojpa.model.Automobile;
 import it.prova.proprietariojpa.model.Proprietario;
@@ -33,7 +34,7 @@ public class AutomobileDAOImpl implements AutomobileDAO {
 			throw new Exception("Problema valore in input");
 		}
 		automobileInstance = entityManager.merge(automobileInstance);
-		
+
 	}
 
 	@Override
@@ -42,7 +43,7 @@ public class AutomobileDAOImpl implements AutomobileDAO {
 			throw new Exception("Problema valore in input");
 		}
 		entityManager.persist(automobileInstance);
-		
+
 	}
 
 	@Override
@@ -51,11 +52,18 @@ public class AutomobileDAOImpl implements AutomobileDAO {
 			throw new Exception("Problema valore in input");
 		}
 		entityManager.remove(entityManager.merge(automobileInstance));
-		
-	}
-		
-	}
-	
-	
 
+	}
 
+	@Override
+	public List<Automobile> findMistakes() throws Exception {
+		TypedQuery<Automobile> query = entityManager.createQuery(
+				"select distinct a from Automobile a join fetch a.proprietario p where a.proprietario.eta <= 18", Automobile.class);
+		
+
+		// return query.getSingleResult() ha il problema che se non trova elementi
+		// lancia NoResultException
+		return query.getResultList();
+	}
+
+}

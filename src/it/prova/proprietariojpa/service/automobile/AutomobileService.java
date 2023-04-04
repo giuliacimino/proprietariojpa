@@ -15,6 +15,8 @@ public interface AutomobileService {
 
 	public void rimuovi(Long idAutomobileInstance) throws Exception;
 	
+	public List<Automobile> cercaErrori () throws Exception;
+	
 	//per injection
 		public void setAutomobileDAO(AutomobileDAO automobileDAO);
 

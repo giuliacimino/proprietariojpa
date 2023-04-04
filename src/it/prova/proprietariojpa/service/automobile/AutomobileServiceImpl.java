@@ -113,6 +113,27 @@ public class AutomobileServiceImpl implements AutomobileService {
 				}
 		
 	}
+
+	@Override
+	public List<Automobile> cercaErrori() throws Exception {
+		// questo è come una connection
+				EntityManager entityManager = EntityManagerUtil.getEntityManager();
+
+				try {
+					// uso l'injection per il dao
+					automobileDAO.setEntityManager(entityManager);
+
+					// eseguo quello che realmente devo fare
+					return automobileDAO.findMistakes();
+
+				} catch (Exception e) {
+					e.printStackTrace();
+					throw e;
+				} finally {
+					EntityManagerUtil.closeEntityManager(entityManager);
+				}
+		
+	}
 	
 	
 

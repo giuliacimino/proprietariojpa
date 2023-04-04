@@ -23,6 +23,16 @@ public class testProprietario {
 			
 			testInserisciAutomobile(proprietarioService, automobileService);
 			System.out.println("in tabella sono presenti "+ proprietarioService.listAllProprietari().size() + " elementi.");
+			
+			testAggiornaProprietario(proprietarioService);
+			System.out.println("in tabella sono presenti "+ proprietarioService.listAllProprietari().size() + " elementi.");
+
+			
+			testCercaErrori(proprietarioService, automobileService);
+			System.out.println("in tabella sono presenti "+ automobileService.listAllAutomobile().size() + " elementi.");
+			
+			
+
 
 		
 		
@@ -81,6 +91,38 @@ public class testProprietario {
 				throw new RuntimeException("testInserisciAutomobile fallito: non ha collegato il municipio ");
 
 			System.out.println(".......testInserisciAutomobile fine: PASSED.............");
+		}
+		
+		//
+		private static void testAggiornaProprietario(ProprietarioService proprietarioService) throws Exception {
+			System.out.println("......testUpdateProprietario inizio........");
+
+			Proprietario test = new Proprietario();
+			test.setNome("Ma");
+			proprietarioService.aggiorna(test);
+			
+			if(test.getNome()==null)
+				throw new Exception();
+			
+			
+			System.out.println("......testUpdateProprietario fine........");
+		}
+		
+		//
+		private static void testCercaErrori (ProprietarioService proprietarioService, AutomobileService automobileService) throws Exception {
+			System.out.println("......testCercaErrori inizio........");
+			List<Proprietario> listaProprietari = proprietarioService.listAllProprietari();
+			if (listaProprietari.isEmpty())
+				throw new RuntimeException("testCercaTuttiIMunicipiConMinorenni fallito: non ci sono municipi a cui collegarci ");
+			
+			Automobile nuovaAutomobile = new Automobile("ford", "fiesta", "F5RG");
+			// lo lego al primo municipio che trovo
+			nuovaAutomobile.setProprietario(listaProprietari.get(0));
+
+			// salvo i nuovi abitante
+			automobileService.inserisciNuovo(nuovaAutomobile);
+			
+			automobileService.cercaErrori();
 		}
 
 }
