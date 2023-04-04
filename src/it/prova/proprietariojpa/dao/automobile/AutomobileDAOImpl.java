@@ -1,5 +1,6 @@
 package it.prova.proprietariojpa.dao.automobile;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -58,7 +59,8 @@ public class AutomobileDAOImpl implements AutomobileDAO {
 	@Override
 	public List<Automobile> findMistakes() throws Exception {
 		TypedQuery<Automobile> query = entityManager.createQuery(
-				"select distinct a from Automobile a join fetch a.proprietario p where a.proprietario.eta <= 18", Automobile.class);
+				"select distinct a from Automobile a join fetch a.proprietario p where p.dataDiNascita < ?1", Automobile.class);
+		query.setParameter(1,LocalDate.now().minusYears(18));
 		
 
 		// return query.getSingleResult() ha il problema che se non trova elementi

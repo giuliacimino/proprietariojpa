@@ -113,16 +113,15 @@ public class testProprietario {
 			System.out.println("......testCercaErrori inizio........");
 			List<Proprietario> listaProprietari = proprietarioService.listAllProprietari();
 			if (listaProprietari.isEmpty())
-				throw new RuntimeException("testCercaTuttiIMunicipiConMinorenni fallito: non ci sono municipi a cui collegarci ");
+				throw new RuntimeException("testCercaErrori fallito: non ci sono municipi a cui collegarci ");
 			
-			Automobile nuovaAutomobile = new Automobile("ford", "fiesta", "F5RG");
-			// lo lego al primo municipio che trovo
-			nuovaAutomobile.setProprietario(listaProprietari.get(0));
-
+			Proprietario nuovoProprietario = new Proprietario("simone", "simoni", "SMNSMN2", LocalDate.of(2007, 01, 01));
+			
 			// salvo i nuovi abitante
-			automobileService.inserisciNuovo(nuovaAutomobile);
+			proprietarioService.inserisciNuovo(nuovoProprietario);
 			
 			automobileService.cercaErrori();
 		}
+		
 
 }
