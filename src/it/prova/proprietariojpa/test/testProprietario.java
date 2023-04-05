@@ -96,12 +96,15 @@ public class testProprietario {
 		//
 		private static void testAggiornaProprietario(ProprietarioService proprietarioService) throws Exception {
 			System.out.println("......testUpdateProprietario inizio........");
-
-			Proprietario test = new Proprietario();
-			test.setNome("Ma");
-			proprietarioService.aggiorna(test);
+			List<Proprietario> listaProprietari = proprietarioService.listAllProprietari();
+			if (listaProprietari.isEmpty())
+				throw new RuntimeException("testAggiornaProprietario fallito: non ci sono municipi a cui collegarci ");
 			
-			if(test.getNome()==null)
+
+			listaProprietari.get(0).setNome("Mario");
+			proprietarioService.aggiorna(listaProprietari.get(0));
+			
+			if(listaProprietari.get(0).getNome()==null)
 				throw new Exception();
 			
 			
